@@ -1,0 +1,35 @@
+{
+    "workbench.colorTheme": "Darcula theme for Elixir",
+    "workbench.colorCustomizations": {
+        "[Darcula theme for Elixir]": {
+            "editor.selectionHighlightBorder": "#ccc66f77",
+            "editor.selectionHighlightBackground": "#1a414dbe"
+        }
+    },
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.snippetSuggestions": "inline",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "window.zoomLevel": 0,
+    "[elixir]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.wordBasedSuggestions": false,
+        "editor.formatOnType": true,
+        "editor.acceptSuggestionOnEnter": "on",
+        "editor.trimAutoWhitespace": false,
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+    },
+    // Elixir
+    "elixirLS.suggestSpecs": true,
+    "elixirLS.dialyzerEnabled": true,
+    // Python
+    "python.formatting.provider": "yapf",
+    "python.formatting.yapfPath": "~/.asdf/shims/yapf",
+    "python.linting.pep8Path": "~/.asdf/shims/pep8",
+    "python.linting.pylintEnabled": false,
+    "python.unitTest.nosetestsEnabled": false,
+    "python.unitTest.pyTestEnabled": true,
+    "python.unitTest.unittestEnabled": true
+}
