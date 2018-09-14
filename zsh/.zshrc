@@ -7,6 +7,7 @@
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# ZSH_THEME="robbyrussell"
 ZSH_THEME="robbyrussell"
 
 # Set list of themes to load
@@ -14,7 +15,7 @@ ZSH_THEME="robbyrussell"
 # cause zsh load theme from this variable instead of
 # looking in ~/.oh-my-zsh/themes/
 # An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "norm" "risto" "jnrowe" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -36,7 +37,8 @@ ZSH_THEME="robbyrussell"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="false"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -115,12 +117,35 @@ compinit
 #GIT
 
 alias gitlog="git log --all --graph --decorate --oneline"
-alias git_del_merged="git branch --merged | grep -v 'master' | cut -c 3- | xargs git branch -d"
-alias gs="git status"
+alias gitclean="git checkout master ; git pull ; git fetch -ap ; delete_branches_not_in_remote"
+
+function delete_branches_not_in_remote {
+  BRANCH=$1
+  
+  # creates array with local branches as LOCALS
+  LOCALS=`git branch | cut -c 3- | tr '\n' ':'`
+  LOCALS=("${(@s/:/)LOCALS}")
+
+  # creates array with remote branches as REMOTES
+  REMOTES=`git branch --remote | cut -c 10- | tr '\n' ':'`
+  REMOTES=("${(@s/:/)REMOTES}")
+  
+  for local in $LOCALS; do
+    is_in_remote=0
+    for remote in $REMOTES; do
+      if [ $local = $remote ]; then
+        is_in_remote=1
+      fi
+    done
+    if [ $is_in_remote = 0 ]; then
+      git branch -D $local
+    fi
+  done
+}
 
 #Version manager: asdf
-. $HOME/.asdf/asdf.sh
 
+. $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 
 #Zsh autosuggest
@@ -151,4 +176,8 @@ function pair_with_victor {
 
 function pair_with_vitor {
     pair_with_ "Vitor Trindade" "emailreservadovitor@gmail.com"
+}
+
+function pair_with_raissa {
+    pair_with_ "Raissa Ferreira" "rai200890@gmail.com"
 }
