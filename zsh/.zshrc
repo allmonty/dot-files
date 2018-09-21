@@ -117,11 +117,15 @@ compinit
 #GIT
 
 alias gitlog="git log --all --graph --decorate --oneline"
-alias gitclean="git checkout master ; git pull ; git fetch -ap ; delete_branches_not_in_remote"
 
-function delete_branches_not_in_remote {
-  BRANCH=$1
-  
+function gitclean {
+  # Will checkout to master, pull, fetch all and prune
+  # then will delete all local branches that aren't in remote
+
+  git checkout master
+  git pull
+  git fetch -ap
+
   # creates array with local branches as LOCALS
   LOCALS=`git branch | cut -c 3- | tr '\n' ':'`
   LOCALS=("${(@s/:/)LOCALS}")
@@ -141,6 +145,16 @@ function delete_branches_not_in_remote {
       git branch -D $local
     fi
   done
+}
+
+function partiu {
+  # Will create a wip commit with a random The Simpsons quote
+  # ------ You must install jq (https://stedolan.github.io/jq/)
+  QUOTE=`curl -s "https://thesimpsonsquoteapi.glitch.me/quotes\?count\=1" | jq -r '.[0]["quote"]'`
+  IMAGE=`curl -s "https://thesimpsonsquoteapi.glitch.me/quotes\?count\=1" | jq -r '.[0]["image"]'`
+  git add -A
+  git commit -m "WIP: $QUOTE" -m "$IMAGE"
+  git push
 }
 
 #Version manager: asdf
