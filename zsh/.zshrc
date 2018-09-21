@@ -150,8 +150,9 @@ function gitclean {
 function partiu {
   # Will create a wip commit with a random The Simpsons quote
   # ------ You must install jq (https://stedolan.github.io/jq/)
-  QUOTE=`curl -s "https://thesimpsonsquoteapi.glitch.me/quotes\?count\=1" | jq -r '.[0]["quote"]'`
-  IMAGE=`curl -s "https://thesimpsonsquoteapi.glitch.me/quotes\?count\=1" | jq -r '.[0]["image"]'`
+  DATA=`curl -s "https://thesimpsonsquoteapi.glitch.me/quotes\?count\=1"`
+  QUOTE=`echo $DATA | jq -r '.[0]["quote"]'`
+  IMAGE=`echo $DATA | jq -r '.[0]["image"]'`
   git add -A
   git commit -m "WIP: $QUOTE" -m "$IMAGE"
   git push
