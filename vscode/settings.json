@@ -1,0 +1,13 @@
+{
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#333333"
+    },
+    "editor.fontSize": 16.5,
+    "window.zoomLevel": -1,
+    "calva.highlight.rainbowIndentGuides": true,
+
+    "[clojure]": {
+        
+    },
+    "calva.paredit.defaultKeyMap": "strict"
+}

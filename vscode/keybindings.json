@@ -1,0 +1,17 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        // must install multi-command extension
+        "key": "alt+t",
+        "command": "extension.multiCommand.execute",
+        "label": "Clojure: Load and Test namespace",
+        "description": "Will load the file and run all tests of the namespace",
+        "args": {
+          "sequence": [
+            "calva.loadFile",
+            "calva.runNamespaceTests"
+          ]
+        },
+        "when": "editorTextFocus && editorLangId == clojure"
+      }
+]
