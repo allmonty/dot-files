@@ -4,10 +4,22 @@
     },
     "editor.fontSize": 16.5,
     "window.zoomLevel": -1,
-    "calva.highlight.rainbowIndentGuides": true,
-
+    
     "[clojure]": {
-        
     },
-    "calva.paredit.defaultKeyMap": "strict"
+    "calva.highlight.rainbowIndentGuides": true,
+    "calva.paredit.defaultKeyMap": "strict",
+
+    "[elixir]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.wordBasedSuggestions": false,
+        "editor.formatOnType": true,
+        "editor.acceptSuggestionOnEnter": "on",
+        "editor.trimAutoWhitespace": false,
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+    },
+    "elixirLS.dialyzerEnabled": true,
+    "elixirLS.suggestSpecs": true,
 }
