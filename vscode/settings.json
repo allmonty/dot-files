@@ -1,25 +1,57 @@
 {
+    "workbench.colorTheme": "Default Dark+",
     "workbench.colorCustomizations": {
         "statusBar.background": "#333333"
     },
     "editor.fontSize": 16.5,
     "window.zoomLevel": -1,
     
-    "[clojure]": {
+    "terminal.integrated.shellIntegration.enabled": true,
+    "explorer.confirmDragAndDrop": false,
+
+    "theme-by-language.themes": {
+        "*": "Default Dark+",
+        "elixir": "Darcula theme for Elixir"
     },
-    "calva.highlight.rainbowIndentGuides": true,
-    "calva.paredit.defaultKeyMap": "strict",
 
     "[elixir]": {
-        "editor.insertSpaces": true,
-        "editor.tabSize": 2,
-        "editor.wordBasedSuggestions": false,
-        "editor.formatOnType": true,
         "editor.acceptSuggestionOnEnter": "on",
+        "editor.insertSpaces": true,
+        "editor.formatOnType": true,
+        "editor.tabSize": 2,
         "editor.trimAutoWhitespace": false,
+        "editor.wordBasedSuggestions": false,
+        
         "files.trimTrailingWhitespace": true,
         "files.insertFinalNewline": true,
     },
     "elixirLS.dialyzerEnabled": true,
     "elixirLS.suggestSpecs": true,
+
+    "[python]": {
+        "editor.formatOnType": true
+    },
+
+    "[clojure]": {
+    },
+    "calva.highlight.rainbowIndentGuides": true,
+    "calva.paredit.defaultKeyMap": "strict",
+
+    "[dart]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        // "editor.rulers": [
+        //     120
+        // ],
+        "editor.selectionHighlight": false,
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        "editor.suggestSelection": "first",
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": false
+    },
+    "files.associations": {
+        "*.arb": "json"
+    },
+    "dart.openDevTools": "flutter",
+    "elixirLS.dialyzerFormat": "dialyzer",
 }
