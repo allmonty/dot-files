@@ -104,6 +104,9 @@ source $ZSH/oh-my-zsh.sh
 #====== My configurations ======#
 #===============================#
 
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
 # ASDF
 
 # . "$HOME/.asdf/asdf.sh"
