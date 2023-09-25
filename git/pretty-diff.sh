@@ -1,4 +1,5 @@
-sudo npm install -g diff-so-fancy
+# sudo npm install -g diff-so-fancy
+snap install diff-so-fancy
 
 git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
 
