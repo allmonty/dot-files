@@ -1,7 +1,18 @@
 {
     "workbench.colorTheme": "Default Dark+",
     "workbench.colorCustomizations": {
-        "statusBar.background": "#333333"
+        "focusBorder": "#ff00ff",
+
+        "list.activeSelectionBackground": "#ff00ff42",
+        
+        "editor.selectionBackground": "#ff00ff42",
+        "editor.findMatchBackground": "#ff00ffaa",
+        "editor.findMatchHighlightBackground": "#ff00ff72",
+
+        "statusBar.background": "#333333",
+        "tab.activeBackground": "#423342",
+        "tab.activeBorderTop": "#ff00ff",
+        "activityBarBadge.background": "#ff00ff",
     },
     "editor.fontSize": 16.5,
     "window.zoomLevel": -1,
@@ -26,8 +37,9 @@
         "files.insertFinalNewline": true,
     },
     "elixirLS.dialyzerEnabled": true,
-    "elixirLS.suggestSpecs": true,
     "elixirLS.dialyzerFormat": "dialyzer",
+    "elixirLS.fetchDeps": true,
+    "elixirLS.suggestSpecs": true,
 
     "[python]": {
         "editor.formatOnType": true
