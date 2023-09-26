@@ -104,14 +104,16 @@ source $ZSH/oh-my-zsh.sh
 #====== My configurations ======#
 #===============================#
 
+# set default editor for terminal programs
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
-# ASDF
+#=== ASDF ===
 
+# In case we remove asdf from plugins we must load asdf.sh
 # . "$HOME/.asdf/asdf.sh"
 
-# GIT
+#=== GIT ===
 
 alias gitlog="git log --all --graph --decorate --oneline"
 

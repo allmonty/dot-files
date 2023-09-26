@@ -9,8 +9,8 @@
 # TBD
 
 
-# Install vscode
-# snap install code
+# # Install vscode
+# # snap install code
 # cp ./vscode/settings.json ~/.config/Code/User/
 # cp ./vscode/keybindings.json ~/.config/Code/User/
 
@@ -40,6 +40,7 @@
 
 # # === Install ASDF
 # git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+
 # # === Install Erlang using ASDF
 # # https://github.com/asdf-vm/asdf-erlang#before-asdf-install
 # sudo apt-get -y install build-essential autoconf m4 libncurses5-dev libwxgtk3.0-gtk3-dev libwxgtk-webview3.0-gtk3-dev \
@@ -47,6 +48,7 @@
 # asdf plugin add erlang
 # asdf install erlang 26.1
 # asdf global erlang 26.1
+
 # # === Install Elixir using ASDF
 # asdf plugin add elixir
 # asdf install elixir 1.15.6-otp-26
