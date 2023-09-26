@@ -27,6 +27,7 @@
     },
     "elixirLS.dialyzerEnabled": true,
     "elixirLS.suggestSpecs": true,
+    "elixirLS.dialyzerFormat": "dialyzer",
 
     "[python]": {
         "editor.formatOnType": true
@@ -53,5 +54,4 @@
         "*.arb": "json"
     },
     "dart.openDevTools": "flutter",
-    "elixirLS.dialyzerFormat": "dialyzer",
 }
