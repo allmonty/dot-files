@@ -118,10 +118,10 @@ export EDITOR="$VISUAL"
 alias gitlog="git log --all --graph --decorate --oneline"
 
 function gitclean {
-  # Will checkout to master, pull, fetch all and prune
+  # Will checkout to main, pull, fetch all and prune
   # then will delete all local branches that aren't in remote
 
-  git checkout master
+  git checkout main
   git pull
   git fetch -ap
 
