@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/allandavid/.oh-my-zsh"
+export ZSH="/home/allan/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -111,7 +111,22 @@ export EDITOR="$VISUAL"
 #=== ASDF ===
 
 # In case we remove asdf from plugins we must load asdf.sh
-# . "$HOME/.asdf/asdf.sh"
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+
+### java from asdf
+# . ~/.asdf/plugins/java/set-java-home.zsh
+
+### flutter from asdf
+# export FLUTTER_ROOT="$(asdf where flutter)"
+
+##=== Android Studio ===
+
+# export ANDROID_HOME=$HOME/Android/Sdk
+# export PATH=$PATH:$ANDROID_HOME/tools
+# export PATH=$PATH:$ANDROID_HOME/tools/bin
+# export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin/
+# export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 #=== GIT ===
 
@@ -178,7 +193,7 @@ function alarm2 {
   done
 }
 
-#GIT pair programming
+# GIT pair programming
 
 function solo {
   unset GIT_COMMITTER_NAME
@@ -199,3 +214,9 @@ function pair_with_miguel {
 function pair_with_victor {
     pair_with_ "Victor Peres" "victor.peres93@gmail.com"
 }
+
+#=== NVM ===
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
