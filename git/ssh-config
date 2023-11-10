@@ -1,16 +1,20 @@
-# ~/.ssh/config
+# To configure for using gitlab and github with ssh
+# create the file ~/.ssh/config with the content:
 
-Host gitlab.com
-  HostName gitlab.com
-  User git
-  IdentityFile ~/.ssh/gitlab
-  AddKeysToAgent no
-  UseKeychain no
+Host *
+  PreferredAuthentications publickey
+  AddKeysToAgent yes
+  IgnoreUnknown UseKeychain
+  UseKeychain yes
 
 Host github.com
   HostName github.com
   User git
-  AddKeysToAgent yes
-  UseKeychain yes
-  IdentityFile ~/.ssh/gitlab
-  
+  IdentityFile ~/.ssh/id_ed25519
+
+Host gitlab.com
+  HostName gitlab.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519
+
+
