@@ -133,13 +133,27 @@ export EDITOR="$VISUAL"
 alias gitlog="git log --all --graph --decorate --oneline"
 
 function gitclean {
-  # Will checkout to main, pull, fetch all and prune
+  # Update branches main, staging and development if they exist
+
+  git fetch --all --prune
+ 
+  if git show-ref --quiet refs/heads/main; then
+    echo "Updating main branch..."
+    git checkout main
+    git pull
+  fi
+  if git show-ref --quiet refs/heads/staging; then
+    echo "Updating staging branch..."
+    git checkout staging
+    git pull
+  fi
+  if git show-ref --quiet refs/heads/development; then
+    echo "Updating development branch..."
+    git checkout development
+    git pull
+  fi
+  # TODO: verify if this is still necessary
   # then will delete all local branches that aren't in remote
-
-  git checkout main
-  git pull
-  git fetch -ap
-
   # creates array with local branches as LOCALS
   LOCALS=`git branch | cut -c 3- | tr '\n' ':'`
   LOCALS=("${(@s/:/)LOCALS}")
