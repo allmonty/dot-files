@@ -1,3 +1,4 @@
+```bash
 #!/bin/bash
 
 # # === Update apt-get and install initial things
@@ -52,4 +53,4 @@
 # # === Install Elixir using ASDF
 # asdf plugin add elixir
 # asdf install elixir 1.15.6-otp-26
-# asdf global elixir 1.15.6-otp-26
+# asdf global elixir 1.15.6-otp-26```
