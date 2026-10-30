@@ -1,18 +1,18 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-export ZSH="/home/allan/.oh-my-zsh"
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
+# load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
@@ -23,17 +23,16 @@ ZSH_THEME="robbyrussell"
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -45,6 +44,9 @@ ZSH_THEME="robbyrussell"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -64,11 +66,11 @@ ZSH_THEME="robbyrussell"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting asdf)
+plugins=(git zsh-autosuggestions colorize asdf)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -83,52 +85,22 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# === My configs
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# recommended way to set Homebrew environment variables
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-
-
-#===============================#
-#====== My configurations ======#
-#===============================#
-
-# set default editor for terminal programs
-export VISUAL=vim
-export EDITOR="$VISUAL"
-
-#=== ASDF ===
-
-# In case we remove asdf from plugins we must load asdf.sh
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
-
-### java from asdf
-# . ~/.asdf/plugins/java/set-java-home.zsh
-
-### flutter from asdf
+# To fix the "Could not find a Flutter SDK" error
 # export FLUTTER_ROOT="$(asdf where flutter)"
 
-##=== Android Studio ===
+# === Flutter ===
 
-# export ANDROID_HOME=$HOME/Android/Sdk
-# export PATH=$PATH:$ANDROID_HOME/tools
-# export PATH=$PATH:$ANDROID_HOME/tools/bin
-# export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin/
-# export PATH=$PATH:$ANDROID_HOME/platform-tools
+export FLUTTER_ROOT="$(asdf where flutter)"
 
-#=== GIT ===
+# === GIT ===
 
 alias gitlog="git log --all --graph --decorate --oneline"
 
@@ -175,62 +147,161 @@ function gitclean {
   done
 }
 
-function commit_wip {
-  # Will create a wip commit with a random The Simpsons quote
-  # ------ You must install jq (https://stedolan.github.io/jq/)
-  DATA=`curl -s "https://thesimpsonsquoteapi.glitch.me/quotes\?count\=1"`
-  QUOTE=`echo $DATA | jq -r '.[0]["quote"]'`
-  IMAGE=`echo $DATA | jq -r '.[0]["image"]'`
-  git add -A
-  git commit -m "WIP: $QUOTE" -m "$IMAGE"
-  git push
+# === Copy videos metafiles ===
+
+# Usefull script to copy metadata from a file to other
+# The function can be used to fix converted videos using handbreak that don't keep the metadata from the original
+# original source: https://www.reddit.com/r/handbrake/comments/8bm1wg/retain_creation_date_metadata_on_converted_file/
+
+# Required program to keep/edit exif data , GPS location etc:
+# brew install exiftool
+
+# Must be executed in the folder with the .avi and .mp4 files, both original and new mus have the same filename
+
+function copyVideosMeta {
+   for f in *.avi; do
+      export originalfile=$(echo ${f} | sed 's/\.avi//g')
+
+      echo
+      echo $originalfile
+
+      # copy metadata from mov file to mp4 file
+      exiftool -TagsFromFile $originalfile.avi -all:all $originalfile.mp4 
+      exiftool -TagsFromFile $originalfile.avi "-AllDates<DateTimeOriginal" "-FileCreateDate<DateTimeOriginal" "-FileModifyDate<DateTimeOriginal" $originalfile.mp4
+      # force the copy of the created and modified at for videos
+      # alternative 1
+      # exiftool -d "%Y:%m:%d %H:%M:%S" -TagsFromFile $originalfile.avi "-QuickTime:CreateDate<FileModifyDate" "-QuickTime:CreationDate<FileModifyDate" "-FileCreateDate<FileModifyDate" "-FileModifyDate<FileModifyDate" -api QuickTimeUTC $originalfile.mp4
+      # alternative 2
+      # exiftool -TagsFromFile $originalfile.avi -GlobalTimeShift +3 "-QuickTime:CreateDate<FileModifyDate" -TagsFromFile $originalfile.avi -d "%Y:%m:%d %H:%M:%S-03:00" "-QuickTime:CreationDate<FileModifyDate" "-FileCreateDate<FileModifyDate" "-FileModifyDate<FileModifyDate" -overwrite_original $originalfile.mp4
+      # alternative 3
+      exiftool -TagsFromFile $originalfile.avi -d "%Y:%m:%d %H:%M:%S-03:00" "-QuickTime:CreateDate<FileModifyDate" "-QuickTime:CreationDate<FileModifyDate" "-FileCreateDate<FileModifyDate" "-FileModifyDate<FileModifyDate" -overwrite_original $originalfile.mp4
+      # alternative 4
+      exiftool -TagsFromFile $originalfile.avi "-QuickTime:CreationDate<FileModifyDate" "-FileCreateDate<FileModifyDate" "-FileModifyDate<FileModifyDate" -GlobalTimeShift +3 "-QuickTime:CreateDate<FileModifyDate" -overwrite_original $originalfile.mp4
+      # copy creation date from mov file to mp4 file
+      # touch -r $originalfile.avi $originalfile.mp4
+
+      # optional (remove comment) remove original file and backup from exiftool
+      # rm $originalfile.mov $originalfile.mp4_original
+   done
 }
 
-function gitupdateall {
-  for f in */ ; do
-    print "\nGitclean at $f\n"
-    $(cd $f && gitclean)
+# === End of my configs
+
+# Compilation flags
+# export ARCHFLAGS="-arch $(uname -m)"
+
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/allmonty/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
+
+# Added by Antigravity
+export PATH="/Users/allmonty/.antigravity/antigravity/bin:$PATH"
+
+# Added by Antigravity CLI installer
+export PATH="/Users/allmonty/.local/bin:$PATH"
+
+# Added by Antigravity IDE
+export PATH="/Users/allmonty/.antigravity-ide/antigravity-ide/bin:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/allmonty/.lmstudio/bin"
+# End of LM Studio CLI section
+
+# Claude code configs
+export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=true
+# End of Claude code configs
+
+# === Cleanup (run from ~/Dev) ===
+# Each _clean_* handles ONE project folder and skips it if it's not that type.
+# _each_project runs one over every folder up to 2 levels deep.
+
+_each_project() {
+  local dir
+  for dir in */(N/) */*/(N/); do
+    "$1" "$dir"
   done
 }
 
-function alarm {
-  sleep `expr $1 \* 60` && afplay ~/Music/submarine.mp3
+_clean_flutter() {
+  [[ -f "$1/pubspec.yaml" ]] && grep -q 'sdk: *flutter' "$1/pubspec.yaml" || return 0
+  echo "🧹 flutter: $1"
+  (cd "$1" && flutter clean)
 }
 
-### mac only?
-function alarm2 {
-  sleep `expr $1 \* 60`
-  for j in {1..5}
-  do
-    say -v luciana $2
-    sleep 1
-  done
+# node_modules comes back with `npm install`; nested workspaces (3+ levels deep) are not found
+_clean_node() {
+  [[ -f "$1/package.json" && -d "$1/node_modules" ]] || return 0
+  echo "🧹 node: $1"
+  rm -rf "$1/node_modules"
 }
 
-# GIT pair programming
-
-function solo {
-  unset GIT_COMMITTER_NAME
-  unset GIT_COMMITTER_EMAIL
-  echo "Unsetting pair."
+_clean_gradle() {
+  [[ -f "$1/gradlew" ]] || return 0
+  # Flutter android/ folders: flutter clean already covers them, and gradle needs pub get first
+  [[ -f "$1/../pubspec.yaml" ]] && return 0
+  echo "🧹 gradle: $1"
+  # Gradle 8.x cannot run on Java 25, so use Android Studio bundled Java 21
+  (cd "$1" && JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" sh ./gradlew clean --no-daemon)
 }
 
-function pair_with_ {
-  export GIT_COMMITTER_NAME=$1
-  export GIT_COMMITTER_EMAIL=$2
-  echo "Setting"  $1  "as pair."
+_clean_git() {
+  [[ -e "$1/.git" ]] || return 0
+  # a lock file means a git command is running there; pruning now could corrupt it
+  if [[ -e "$1/.git/index.lock" ]]; then
+    echo "⏭️  git: $1 (git is busy, skipped)"
+    return 0
+  fi
+  echo "🧹 git: $1"
+  git -C "$1" gc --prune=now --quiet
 }
 
-function pair_with_miguel {
-    pair_with_ "Miguel Péres" "foxmpc@gmail.com"
+flutter_clean_all() { _each_project _clean_flutter }
+node_clean_all()    { _each_project _clean_node }
+gradle_clean_all()  { _each_project _clean_gradle }
+git_prune_all()     { _each_project _clean_git }
+
+# Run every cleaner; git last so it packs what the others left
+clean_all() {
+  flutter_clean_all
+  node_clean_all
+  gradle_clean_all
+  git_prune_all
 }
 
-function pair_with_victor {
-    pair_with_ "Victor Peres" "victor.peres93@gmail.com"
+# === end of cleanup ===
+
+sizes() {
+  du -sh *(D/) | sort -h
+
+  du -sh .
 }
 
-#=== NVM ===
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
