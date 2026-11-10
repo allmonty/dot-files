@@ -1,0 +1,11 @@
+clojure 1.12.6.1673
+java temurin-25.0.5+8.0.LTS
+flutter 3.47.9-stable
+erlang 29.1.2
+elixir 1.20.5-otp-29
+python 3.15.2t
+nodejs 26.13.0
+ruby 4.0.1
+ollama 0.17.4
+rust 1.99.1
+gradle 9.4.0
