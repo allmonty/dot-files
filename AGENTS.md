@@ -5,7 +5,7 @@ Personal dotfiles repo (macOS, zsh). There is no build, test or lint tooling.
 ## Layout
 
 - `.zshrc`: config only (Oh My Zsh, PATH, env, tool init blocks). It sources every `scripts/*.zsh` through the fixed path `$HOME/Dev/dot-files/scripts`.
-- `scripts/*.zsh`: shell functions and aliases, one file per topic (git, git-pair, alarm, videos, cleanup). Put new functions here, not in `.zshrc`.
+- `scripts/*.zsh`: shell functions and aliases, one file per topic (git, git-pair, alarm, videos, cleanup, asdf). Put new functions here, not in `.zshrc`.
 - `git/`, `vscode/`, `clojure/`, `Thinkpad/`: configs and reference notes, independent of each other.
 - `ubuntu/ubuntu-setup-notes.md`: old Ubuntu setup checklist (a fenced shell snippet, not runnable). Some lines are stale; the `.zshrc` is macOS-specific (Homebrew, conda), so it won't load cleanly on Ubuntu.
 
