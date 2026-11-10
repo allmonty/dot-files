@@ -93,12 +93,15 @@ source $ZSH/oh-my-zsh.sh
 # recommended way to set Homebrew environment variables
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# To fix the "Could not find a Flutter SDK" error
-# export FLUTTER_ROOT="$(asdf where flutter)"
-
 # === Flutter ===
 
+# To fix the "Could not find a Flutter SDK" error
 export FLUTTER_ROOT="$(asdf where flutter)"
+
+# === CLojure & Erlang ===
+
+# To compile erlang using wxwidgets instead of wxmac
+export KERL_CONFIGURE_OPTIONS="--with-ssl=$(brew --prefix openssl@3) --with-wx-config=$(brew --prefix wxwidgets)/bin/wx-config"
 
 # === My Scripts ===
 
