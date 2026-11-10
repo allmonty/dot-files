@@ -18,3 +18,6 @@ fi
 
 ln -s "$repo_zshrc" "$target"
 echo "linked: $target -> $repo_zshrc"
+
+# A script can't source into the shell that ran it, so start a fresh zsh that loads the new file
+if [ -t 0 ]; then exec zsh; fi
