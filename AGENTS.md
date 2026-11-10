@@ -11,7 +11,7 @@ Personal dotfiles repo (macOS, zsh). There is no build, test or lint tooling.
 
 ## Things that aren't obvious
 
-- `~/.zshrc` is a **copy** of the repo's `.zshrc`, not a symlink. Editing the repo file changes nothing on the machine until it is copied over, and the live file can drift from the repo.
+- `./install.sh` symlinks `~/.zshrc` to the repo's `.zshrc`, backing up any existing file as `~/.zshrc.bak.<timestamp>`. Once linked, repo edits are live, and anything a tool appends to `~/.zshrc` lands in the repo file.
 - Syntax-check shell changes with `zsh -n <file>`. To confirm functions load: `zsh -c 'for f in scripts/*.zsh; do source $f; done; whence -w <function>'`.
 - The `plugins=(...)` line in `.zshrc` needs `zsh-autosuggestions` and `zsh-syntax-highlighting` cloned into `$ZSH_CUSTOM/plugins` by hand. `zsh-syntax-highlighting` must stay last in the list.
 - The `clean_all` functions in `scripts/cleanup.zsh` are destructive (they delete `node_modules`, run `flutter clean`, `gradle clean` and `git gc --prune=now`) and run over `~/Dev`. Don't run them to test.
